@@ -8,6 +8,8 @@ function Book(title, author, isbn){
 // UI Constructor
 function UI(){};
 
+const ui = new UI(); // global ui object
+
 UI.prototype.addBookToTable= function(book){
   const list = document.getElementById('book-list');
   const row= document.createElement('tr');
@@ -47,6 +49,12 @@ setTimeout(function(e){
 
 }
 
+UI.prototype.deleteBook = function(target){
+  if(target.className=='delete'){
+    target.parentElement.parentElement.remove();
+  }
+};
+
 document.getElementById('book-form').addEventListener('submit', function(e){
   // get input values
   const title = document.getElementById('title').value;
@@ -57,7 +65,7 @@ document.getElementById('book-form').addEventListener('submit', function(e){
   const book = new Book(title, author, isbn);
   // Add book to table
   // create UI object
-  const ui = new UI();
+ 
 
 if(title==''||author==''||isbn==''){
   ui.showAlert('Please fill in all fields!', 'error');
@@ -66,9 +74,12 @@ if(title==''||author==''||isbn==''){
   ui.clearFields();
   ui.showAlert('Book Added to list!','success');
 }
-
-  
-
   // Clear Fields
+  e.preventDefault();
+});
+
+document.getElementById('book-list').addEventListener('click', function(e){
+  
+  ui.deleteBook(e.target);
   e.preventDefault();
 });
