@@ -43,16 +43,21 @@ div.appendChild(document.createTextNode(message));
 
 container.insertBefore(div,form);
 
+// Remove afrter 3 sec
 setTimeout(function(e){
   document.querySelector('.alert').remove();
-},3000)
-
+},3000);
 }
 
 UI.prototype.deleteBook = function(target){
   if(target.className=='delete'){
+    ui.showAlert('Book deleted from list!','success');
     target.parentElement.parentElement.remove();
+
   }
+
+  
+  
 };
 
 document.getElementById('book-form').addEventListener('submit', function(e){
